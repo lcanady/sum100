@@ -1,8 +1,15 @@
 const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 const value = 100;
-
-// calculate the total number of possible combinations (3^8)
 const ops = ["", "-", "+"];
+
+const opsFuns = {
+  "": (a, b) => a + b,
+  "+": (a, b) => a + b,
+  "-": (a, b) => a - b,
+  "*": (a, b) => a * b,
+  "/": (a, b) => a / b,
+};
+
 const combos = Math.pow(ops.length, numbers.length - 1);
 const solutions = [];
 
@@ -27,11 +34,16 @@ for (let i = 0; i <= combos; i++) {
 
   // Run it. Save it. Done.
   const answer = tempSolution
-    .replace(/\+/g, " +")
-    .replace(/\-/g, " -")
+    .replace(/([\/\+\*\-])/g, " $1")
     .split(" ")
-    .map((v) => parseInt(v))
-    .reduce((p, c) => p + c);
+    .reduce((p, c) => {
+      const op = c.split("")[0];
+      if (/^[\+\*\-\/]/.test(op)) {
+        return opsFuns[op](parseInt(p), parseInt(c.slice(1)));
+      }
+
+      return parseInt(p) + parseInt(c);
+    });
 
   if (answer === value) solutions.push(tempSolution);
 }
