@@ -14,7 +14,7 @@ const combos = Math.pow(ops.length, numbers.length - 1);
 const solutions = [];
 
 for (let i = 0; i <= combos; i++) {
-  // Build a list of operators with the possible values of (0,1,2).
+  // Build a list of operators.
   const o = i
     .toString(ops.length) // convert index to base 3
     .padStart(numbers.length - 1, "0") // <---
