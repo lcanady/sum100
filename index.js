@@ -21,8 +21,7 @@ for (let i = 0; i <= combos; i++) {
     .split("")
     .map((v) => parseInt(v));
 
-  // I need to find a cleaner presentation for this string.  Just a long
-  // interplation to create the  possible solution string.
+  // build an answer expression
   let tempSolution = "";
   for (let j = 0; j < numbers.length; j++) {
     if (j < numbers.length - 1) {
@@ -32,7 +31,7 @@ for (let i = 0; i <= combos; i++) {
     }
   }
 
-  // Run it. Save it. Done.
+  // Reduce the expression to an answer
   const answer = tempSolution
     .replace(/([\/\+\*\-])/g, " $1")
     .split(" ")
@@ -45,6 +44,7 @@ for (let i = 0; i <= combos; i++) {
       return parseInt(p) + parseInt(c);
     });
 
+  // compare and save if a match.
   if (answer === value) solutions.push(tempSolution);
 }
 
